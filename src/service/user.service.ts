@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from '../models/user.models';
@@ -20,7 +20,7 @@ export class UserService {
     }
     const isPasswordMatching = await user.comparePassword(password);
     if (!isPasswordMatching) {
-      throw new NotFoundException('User does not match');
+      throw new UnauthorizedException('User does not match');
     }
     const token = user.createJWT();
     return { user, userToken: token };

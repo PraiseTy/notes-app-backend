@@ -10,7 +10,7 @@ describe('UserController', () => {
 
   const mockUserService = {
     createUser: jest.fn((dto: CreateNewUserDto) => ({
-      _id: '232399585930',
+      id: '232399585930',
       ...dto
     }))
   };
@@ -55,10 +55,9 @@ describe('UserController', () => {
     expect(res.json).toHaveBeenCalledWith({
       message: 'User created successfully',
       data: {
-        _id: '232399585930',
+        id: '232399585930',
         name: 'John Doe',
-        email: 'JohnDoe@example.com',
-        password: 'password@123'
+        email: 'JohnDoe@example.com'
       }
     });
   });
