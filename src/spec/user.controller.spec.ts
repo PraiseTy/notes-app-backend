@@ -2,8 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UserController } from '../controllers/user.controller';
 import { UserService } from '../service/user.service';
 import { CreateNewUserDto } from '../dtos';
-import { Response } from 'express';
-import { HTTP_STATUS } from '../responses/constants';
 
 describe('UserController', () => {
   let controller: UserController;
@@ -13,13 +11,6 @@ describe('UserController', () => {
       id: '232399585930',
       ...dto
     }))
-  };
-
-  const mockResponse = (): Partial<Response> => {
-    const res: Partial<Response> = {};
-    res.status = jest.fn().mockReturnValue(res);
-    res.json = jest.fn().mockReturnValue(res);
-    return res;
   };
 
   beforeEach(async () => {
@@ -46,13 +37,10 @@ describe('UserController', () => {
       email: 'JohnDoe@example.com',
       password: 'password@123'
     };
+    const result = await controller.create(dto);
 
-    const res = mockResponse();
-    await controller.create(dto);
-
-    expect(res.status).toHaveBeenCalledWith(HTTP_STATUS.CREATED);
     expect(mockUserService.createUser).toHaveBeenCalledWith(dto);
-    expect(res.json).toHaveBeenCalledWith({
+    expect(result).toEqual({
       message: 'User created successfully',
       data: {
         id: '232399585930',
