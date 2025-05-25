@@ -48,7 +48,7 @@ describe('UserController', () => {
     };
 
     const res = mockResponse();
-    await controller.create(res as Response, dto);
+    await controller.create(dto);
 
     expect(res.status).toHaveBeenCalledWith(HTTP_STATUS.CREATED);
     expect(mockUserService.createUser).toHaveBeenCalledWith(dto);
