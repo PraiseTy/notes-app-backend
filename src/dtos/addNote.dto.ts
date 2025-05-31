@@ -13,4 +13,7 @@ export class AddNotesDto {
   @IsArray()
   @IsOptional()
   tags: string[];
+
+  @IsOptional()
+  isArchived: boolean;
 }

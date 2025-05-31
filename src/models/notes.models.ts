@@ -5,6 +5,7 @@ export interface Note extends Document {
   body: string;
   writer: Types.ObjectId;
   tags: string[];
+  isArchived: boolean;
 }
 
 export const NotesSchema = new Schema<Note>(
@@ -24,6 +25,10 @@ export const NotesSchema = new Schema<Note>(
     },
     tags: {
       type: [String]
+    },
+    isArchived: {
+      type: Boolean,
+      default: false
     }
   },
   { timestamps: true }
