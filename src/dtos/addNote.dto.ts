@@ -1,4 +1,4 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsArray, IsMongoId, IsNotEmpty, IsOptional } from 'class-validator';
 
 export class AddNotesDto {
   @IsNotEmpty({ message: 'Title is required' })
@@ -7,9 +7,10 @@ export class AddNotesDto {
   @IsNotEmpty({ message: 'Body is required' })
   body: string;
 
+  @IsMongoId({ message: 'Writer must be a valid ObjectId' })
+  writer: string;
+
+  @IsArray()
+  @IsOptional()
   tags: string[];
-
-  createdAt: Date;
-
-  updatedAt: Date;
 }
