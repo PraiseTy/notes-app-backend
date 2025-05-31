@@ -23,7 +23,7 @@ export class UserService extends BaseService {
   }
   async createUser(createNewUserDto: CreateNewUserDto): Promise<User> {
     const { email } = createNewUserDto;
-    const user = await this.userModel.find({ email: email });
+    const user = await this.userModel.findOne({ email: email });
 
     if (user) {
       throw new BadRequestException('User already exists');
