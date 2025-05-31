@@ -8,7 +8,8 @@ export class AddNotesDto {
   body: string;
 
   @IsMongoId({ message: 'Writer must be a valid ObjectId' })
-  writer: string;
+  @IsOptional()
+  writer?: string;
 
   @IsArray()
   @IsOptional()
