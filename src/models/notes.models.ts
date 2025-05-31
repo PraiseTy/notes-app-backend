@@ -1,8 +1,9 @@
-import { Schema } from 'mongoose';
+import { Schema, Types, Document } from 'mongoose';
 
-interface Note {
+export interface Note extends Document {
   title: string;
   body: string;
+  writer: Types.ObjectId;
   tags: string[];
   createdAt: Date;
   updatedAt: Date;
@@ -17,13 +18,20 @@ export const NotesSchema = new Schema<Note>({
     type: String,
     required: true
   },
+  writer: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
   tags: {
     type: [String]
   },
   createdAt: {
-    type: Date
+    type: Date,
+    default: Date.now
   },
   updatedAt: {
-    type: Date
+    type: Date,
+    default: Date.now
   }
 });

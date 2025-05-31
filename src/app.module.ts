@@ -3,8 +3,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './modules/user.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { NotesController } from './controllers/notes.controller';
-import { NotesService } from './service/notes.service';
 import { NotesModule } from './modules/notes.module';
 
 const dotenv = require('dotenv');
@@ -18,7 +16,7 @@ if (!connectionUrl) {
 
 @Module({
   imports: [MongooseModule.forRoot(connectionUrl), UserModule, NotesModule],
-  controllers: [AppController, NotesController],
-  providers: [AppService, NotesService]
+  controllers: [AppController],
+  providers: [AppService]
 })
 export class AppModule {}
