@@ -1,10 +1,15 @@
 import { Schema, Types, Document } from 'mongoose';
+import { TagSchema } from './tags.models';
 
+interface Tag {
+  id: Types.ObjectId;
+  name: string;
+}
 export interface Note extends Document {
   title: string;
   body: string;
   writer: Types.ObjectId;
-  tags: string[];
+  tags: Tag[];
   isArchived: boolean;
 }
 
@@ -23,9 +28,7 @@ export const NotesSchema = new Schema<Note>(
       ref: 'User',
       required: true
     },
-    tags: {
-      type: [String]
-    },
+    tags: [TagSchema],
     isArchived: {
       type: Boolean,
       default: false
