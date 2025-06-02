@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Inject,
   Injectable,
   LoggerService,
@@ -21,6 +22,12 @@ export class UserService extends BaseService {
     super(logger);
   }
   async createUser(createNewUserDto: CreateNewUserDto): Promise<User> {
+    const { email } = createNewUserDto;
+    const user = await this.userModel.findOne({ email: email });
+
+    if (user) {
+      throw new BadRequestException('User already exists');
+    }
     const createdUser = new this.userModel(createNewUserDto);
     this.logger.log('User created', 'UserSignUp');
     return createdUser.save();
